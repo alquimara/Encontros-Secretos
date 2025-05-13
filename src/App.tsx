@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { Button } from "./components/ui/button"
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
@@ -154,49 +154,23 @@ function App() {
     return stored ? JSON.parse(stored) : {};
   });
 
-
-  // useEffect(() => {
-  //   const storedCardsRevelados = localStorage.getItem("cardsRevelados");
-  //   if (storedCardsRevelados) {
-  //     setCardRevelados(JSON.parse(storedCardsRevelados));
-  //   }
-  // }, [cardRevelados]);
-
-  // useEffect(() => {
-  //   const storedCardsRealizados = localStorage.getItem("cardsRealizados");
-  //   if (storedCardsRealizados) {
-  //     setCardRealizados(JSON.parse(storedCardsRealizados));
-  //   }
-  // }, []);
-
-
-
-  const revelarCard = (categoria: string, id: number) => {
+  const revelarCard = useCallback((categoria: string, id: number) => {
     const key = `${categoria}-${id}`;
     setCardRevelados((prev) => {
       if (prev[key]) return prev;
-      const updated = { ...prev, [key]: !prev[key] };
-
+      const updated = { ...prev, [key]: true };
       localStorage.setItem("cardsRevelados", JSON.stringify(updated));
       return updated;
     });
-  };
-
-
-
-
-  const toggleRealizado = (categoria: string, id: number) => {
+  }, []);
+  const toggleRealizado = useCallback((categoria: string, id: number) => {
     const key = `${categoria}-${id}`;
     setCardRealizados((prev) => {
-      const updated = {
-        ...prev,
-        [key]: !prev[key],
-      };
+      const updated = { ...prev, [key]: !prev[key] };
       localStorage.setItem("cardsRealizados", JSON.stringify(updated));
-
       return updated;
     });
-  };
+  }, []);
 
   const getQtdRealizados = (categoria: string) => {
     return encontros[categoria].filter((e) => cardRealizados[`${categoria}-${e.id}`]).length;

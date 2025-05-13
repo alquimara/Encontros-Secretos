@@ -145,7 +145,7 @@ function App() {
   const [cardRevelados, setCardRevelados] = useState<{ [key: string]: boolean }>({});
   const [realizados, setRealizados] = useState<{ [key: string]: boolean }>({});
 
-  
+
   useEffect(() => {
     const storedCards = localStorage.getItem("cardsRevelados");
     if (storedCards) {
@@ -166,7 +166,7 @@ function App() {
   };
 
 
-  
+
 
   const toggleRealizado = (categoria: string, id: number) => {
     const key = `${categoria}-${id}`;
@@ -254,34 +254,32 @@ function App() {
                         className={`absolute w-full h-full flex flex-col items-center justify-center bg-white rounded-xl border p-2 text-center shadow-lg }`}
                         style={{ transform: 'rotateY(180deg)', backfaceVisibility: 'hidden' }}
                       >
-                        
+
                         {cardRevelados[key] && (
-                          
+
                           <motion.div
                             initial={{ opacity: 0, scale: 0.9 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ duration: 0.4 }}
                           >
-                            <div  className={isFeito ? 'opacity-50' : ''}>
-                            <div className="text-4xl mb-2">{encontro.icone}</div>
-                            <div className="text-base font-semibold mb-2">{encontro.nome}</div>
+                            <div className={isFeito ? 'opacity-50' : ''}>
+                              <div className="text-4xl mb-2">{encontro.icone}</div>
+                              <div className="text-base font-semibold mb-2">{encontro.nome}</div>
                             </div>
-                            
 
-                            {!isFeito ?(
-                              <Button
-                              className={'mt-2 cursor-pointer'}
-                                size="sm"
-                                variant="default"
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  toggleRealizado(categoriaSelecionada, encontro.id);
-                                }}
-                              >
-                                Marcar como feito
-                              </Button>
-                            ) : <Button  className={'mt-2 cursor-pointer'} variant="link">Desfazer</Button>}
-                            
+
+                            <Button
+                              className="mt-2 cursor-pointer"
+                              size="sm"
+                              variant={isFeito ? 'link' : 'default'}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                toggleRealizado(categoriaSelecionada, encontro.id);
+                              }}
+                            >
+                              {isFeito ? 'Desfazer' : 'Marcar como feito'}
+                            </Button>
+
                           </motion.div>
                         )}
                       </div>

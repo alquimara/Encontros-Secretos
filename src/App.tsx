@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button } from "./components/ui/button"
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
@@ -136,22 +136,38 @@ const encontros: EncontrosPorCategoria = {
 };
 
 const categorias = Object.keys(encontros);
-console.log(categorias)
+
 
 
 function App() {
 
   const [categoriaSelecionada, setCategoriaSelecionada] = useState<string | null>(null);
-  const [cardRevelados, setCardRevelados] = useState<{ [key: string]: boolean }>({});
-  const [realizados, setRealizados] = useState<{ [key: string]: boolean }>({});
+  // const [cardRevelados, setCardRevelados] = useState<{ [key: string]: boolean }>({});
+  // const [cardRealizados, setCardRealizados] = useState<{ [key: string]: boolean }>({});
+  const [cardRevelados, setCardRevelados] = useState<{ [key: string]: boolean }>(() => {
+    const stored = localStorage.getItem("cardsRevelados");
+    return stored ? JSON.parse(stored) : {};
+  });
+
+  const [cardRealizados, setCardRealizados] = useState<{ [key: string]: boolean }>(() => {
+    const stored = localStorage.getItem("cardsRealizados");
+    return stored ? JSON.parse(stored) : {};
+  });
 
 
-  useEffect(() => {
-    const storedCards = localStorage.getItem("cardsRevelados");
-    if (storedCards) {
-      setCardRevelados(JSON.parse(storedCards));
-    }
-  }, []);
+  // useEffect(() => {
+  //   const storedCardsRevelados = localStorage.getItem("cardsRevelados");
+  //   if (storedCardsRevelados) {
+  //     setCardRevelados(JSON.parse(storedCardsRevelados));
+  //   }
+  // }, [cardRevelados]);
+
+  // useEffect(() => {
+  //   const storedCardsRealizados = localStorage.getItem("cardsRealizados");
+  //   if (storedCardsRealizados) {
+  //     setCardRealizados(JSON.parse(storedCardsRealizados));
+  //   }
+  // }, []);
 
 
 
@@ -160,6 +176,7 @@ function App() {
     setCardRevelados((prev) => {
       if (prev[key]) return prev;
       const updated = { ...prev, [key]: !prev[key] };
+
       localStorage.setItem("cardsRevelados", JSON.stringify(updated));
       return updated;
     });
@@ -170,14 +187,19 @@ function App() {
 
   const toggleRealizado = (categoria: string, id: number) => {
     const key = `${categoria}-${id}`;
-    setRealizados((prev) => ({
-      ...prev,
-      [key]: !prev[key],
-    }));
+    setCardRealizados((prev) => {
+      const updated = {
+        ...prev,
+        [key]: !prev[key],
+      };
+      localStorage.setItem("cardsRealizados", JSON.stringify(updated));
+
+      return updated;
+    });
   };
 
   const getQtdRealizados = (categoria: string) => {
-    return encontros[categoria].filter((e) => realizados[`${categoria}-${e.id}`]).length;
+    return encontros[categoria].filter((e) => cardRealizados[`${categoria}-${e.id}`]).length;
   };
 
 
@@ -200,7 +222,6 @@ function App() {
                 className="cursor-pointer hover:shadow-xl hover:bg-pink-50 transition border-pink-300"
                 onClick={() => {
                   setCategoriaSelecionada(categoria);
-                  setCardRevelados({});
                 }}
               >
                 <CardContent className="p-6 text-center font-semibold text-lg capitalize text-pink-800">
@@ -214,7 +235,7 @@ function App() {
       ) : (
         <>
           <Button
-            className="mb-6 text-sm text-pink-600 hover:text-pink-800"
+            className="mb-6 text-sm text-pink-600 hover:text-pink-800 mt-2 cursor-pointer"
             variant="outline"
             onClick={() => setCategoriaSelecionada(null)}
           >
@@ -228,14 +249,14 @@ function App() {
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6">
             {encontros[categoriaSelecionada].map((encontro, index) => {
               const key = `${categoriaSelecionada}-${encontro.id}`;
-              const isFeito = realizados[key];
+              const isFeito = cardRealizados[key];
               return (
                 <motion.div
                   key={index}
                   className="relative perspective cursor-pointer"
                   onClick={() => revelarCard(categoriaSelecionada, encontro.id)}
                 >
-                  <div className="relative w-full h-40" style={{ transformStyle: 'preserve-3d' }}>
+                  <div className="relative w-full h-46" style={{ transformStyle: 'preserve-3d' }}>
                     <motion.div
                       initial={false}
                       animate={{ rotateY: cardRevelados[key] ? 180 : 0 }}
@@ -264,7 +285,7 @@ function App() {
                           >
                             <div className={isFeito ? 'opacity-50' : ''}>
                               <div className="text-4xl mb-2">{encontro.icone}</div>
-                              <div className="text-base font-semibold mb-2">{encontro.nome}</div>
+                              <div className="text-base font-semibold mb-2 min-h-[48px]">{encontro.nome}</div>
                             </div>
 
 

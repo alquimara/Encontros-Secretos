@@ -22,8 +22,39 @@ function App() {
     categorias,
     encontrosCard,
     modalInfo,
-    setModalInfo
+    setModalInfo,
+    todasAsFases,
+    setEncontrosCard,
+    setCardRealizados,
+    setCardRevelados
   } = useEncontros(Encontros);
+
+
+ const MudancaFase =()=>{
+  const faseAtual = Number(localStorage.getItem("faseAtual") || "0");
+
+  // Se for o modal de nova fase, aí sim avança!
+  if (modalInfo?.tipo === "fase") {
+    const novaFase = faseAtual + 1;
+    localStorage.setItem("faseAtual", novaFase.toString());
+    localStorage.removeItem("cardRealizados");
+    localStorage.removeItem("cardRevelados");
+
+    const categoriasAntigas = Object.keys(todasAsFases[faseAtual] || {});
+    categoriasAntigas.forEach((categoria) => {
+      localStorage.removeItem(`concluida-${categoria}-fase-${faseAtual}`);
+    });
+
+    setEncontrosCard(todasAsFases[novaFase]);
+    setCardRealizados({});
+    setCardRevelados({});
+    setCategoriaSelecionada(null);
+  }
+
+  // Fecha o modal normalmente
+  setModalInfo(null);
+  setCategoriaSelecionada('')
+ }
 
   return (
     <div className="p-6 max-w-6xl mx-auto">
@@ -76,10 +107,11 @@ function App() {
   <ModalParabens
     titulo={modalInfo.titulo}
     mensagem={modalInfo.mensagem}
-    onClose={() => {
-      setModalInfo(null);
-      setCategoriaSelecionada('');
-    }}
+    // onClose={() => {
+    //   setModalInfo(null);
+    //   setCategoriaSelecionada('');
+    // }}
+    onClose={MudancaFase}
   />
 )}
     </div>

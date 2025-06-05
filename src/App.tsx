@@ -12,6 +12,8 @@ import FinalScreen from './components/FinalScreen';
 
 
 
+
+
 function App() {
   const {
     categoriaSelecionada,
@@ -29,9 +31,13 @@ function App() {
     setEncontrosCard,
     setCardRealizados,
     setCardRevelados,
-    jogoConcluido
+    jogoConcluido,
+    tocarSom,
+
   } = useEncontros(Encontros);
 
+
+ 
 
   const MudancaFase = () => {
     const faseAtual = Number(localStorage.getItem("faseAtual") || "0");
@@ -171,7 +177,7 @@ function App() {
         ) : (
           <>
 
-            <div className="relative flex items-center mb-8">
+            <div className="relative flex items-center mb-8 justify-center">
               <div className="absolute left-0">
                 <ButtonVoltar onClick={() => setCategoriaSelecionada(null)} />
               </div>
@@ -196,8 +202,7 @@ function App() {
                     revelado={cardRevelados[key]}
                     realizado={isFeito}
                     onRevelar={() => revelarCard(categoriaSelecionada, encontro.id)}
-                    onToggleRealizado={() => toggleRealizado(categoriaSelecionada, encontro.id)}
-                  />
+                    onToggleRealizado={() => toggleRealizado(categoriaSelecionada, encontro.id)} tocar={tocarSom}                  />
                 );
               })}
             </div>

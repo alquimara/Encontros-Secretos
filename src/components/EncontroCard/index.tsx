@@ -12,6 +12,7 @@ interface EncontroCardProps {
   realizado: boolean;
   onRevelar: () => void;
   onToggleRealizado: () => void;
+  tocar: (src: string) => void;
 }
 
 export const EncontroCard = ({
@@ -20,6 +21,7 @@ export const EncontroCard = ({
   realizado,
   onRevelar,
   onToggleRealizado,
+  tocar,
 }: EncontroCardProps) => {
   return (
     <motion.div
@@ -62,6 +64,7 @@ export const EncontroCard = ({
                   onClick={(e) => {
                     e.stopPropagation();
                     onToggleRealizado();
+                    tocar(realizado ? '/Encontros-Secretos/cancelar.aac' : '/Encontros-Secretos/sucess.aac');
                   }}
                 >
                   {realizado ? 'Desfazer' : 'Marcar como feito'}

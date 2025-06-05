@@ -21,149 +21,7 @@ export function useEncontros(Encontros: EncontrosPorCategoria) {
   const [jogoConcluido, setJogoConcluido] = useState(false);
 
   const categorias = Object.keys(Encontros);
-  
-  // useEffect(() => {
-  //   const faseAtual = Number(localStorage.getItem("faseAtual") || "0");
-  //   const encontrosDaFase = todasAsFases[faseAtual];
-  //   const categorias = Object.keys(encontrosDaFase);
-  
-  //   let todasCategoriasFeitas = true;
-  
-  //   categorias.forEach((categoria) => {
-  
 
-  //     const cards = encontrosDaFase[categoria];
-  //     const total = cards.length;
-  //     const feitos = cards.filter((e) => cardRealizados[`${categoria}-${e.id}`]).length;
-  
-  //     // Mostra mensagem se uma categoria foi concluída individualmente
-  //     if (
-  //       feitos === total &&
-  //       total > 0 &&
-  //       !localStorage.getItem(`concluida-${categoria}-fase-${faseAtual}`)
-  //     ) {
-  //       setModalInfo({
-  //         titulo: "🎉 Categoria Concluída!",
-  //         mensagem: `Você concluiu todos os encontros da categoria "${categoria}".`,
-  //         tipo: "categoria", // <-- adicionamos o tipo
-  //       });
-  //       localStorage.setItem(`concluida-${categoria}-fase-${faseAtual}`, "true");
-  //     }
-  
-  //     if (feitos < total) {
-  //       todasCategoriasFeitas = false;
-  //     }
-  //   });
-  
-  //   // Se todas foram feitas, exibe modal de nova fase — mas não avança ainda!
-  //   if (
-  //     todasCategoriasFeitas &&
-  //     categorias.length > 0 &&
-  //     faseAtual + 1 < todasAsFases.length &&
-  //     categorias.every((cat) =>
-  //       localStorage.getItem(`concluida-${cat}-fase-${faseAtual}`)
-  //     )
-  //   ) {
-  //     console.log(modalInfo)
-  //     // Só mostra uma vez
-  //     if (!modalInfo) {
-  //       setModalInfo({
-  //         titulo: "🎉 Encontros Concluídos",
-  //         mensagem: "✨ Parabéns! Você completou todas as categorias dessa fase. Novos encontros foram desbloqueados!",
-  //         tipo: "fase", // <-- adicionamos o tipo
-  //       });
-  //     }
-  //   }
- 
-
-  //   const todasFasesConcluidas = todasAsFases.every((fase, index) => {
-  //     const categorias = Object.keys(fase);
-  //     return categorias.every((cat) => {
-  //       const key = `concluida-${cat}-fase-${index}`;
-  //       const concluiu = localStorage.getItem(key);
-  //       if (!concluiu) {
-  //         console.log("⚠️ Faltando:", key);
-  //       }
-  //       return concluiu;
-  //     });
-  //   });
-
-  //   // const todasFasesConcluidas = todasAsFases.every((fase, index) => {
-  //   //   const categorias = Object.keys(fase);
-  //   //   return categorias.every((cat) =>
-  //   //     localStorage.getItem(`concluida-${cat}-fase-${index}`)
-  //   //   );
-  //   // });
-  //   console.log(todasFasesConcluidas)
-  //   if (todasFasesConcluidas) {
-  //     console.log('todas fases concluidas')
-  //     // window.location.href = "/fim"; 
-  //     setJogoConcluido(true)
-  //   }
-  // }, [cardRealizados]);
-  
-
-  // useEffect(() => {
-  //   const faseAtual = Number(localStorage.getItem("faseAtual") || "0");
-  //   const encontrosDaFase = todasAsFases[faseAtual];
-  //   const categorias = Object.keys(encontrosDaFase);
-  
-  //   let todasCategoriasFeitas = true;
-  //   let categoriaRecemConcluida: string | null = null;
-  
-  //   categorias.forEach((categoria) => {
-  //     const cards = encontrosDaFase[categoria];
-  //     const total = cards.length;
-  //     const feitos = cards.filter((e) => cardRealizados[`${categoria}-${e.id}`]).length;
-  
-  //     if (
-  //       feitos === total &&
-  //       total > 0 &&
-  //       !localStorage.getItem(`concluida-${categoria}-fase-${faseAtual}`)
-  //     ) {
-  //       localStorage.setItem(`concluida-${categoria}-fase-${faseAtual}`, "true");
-  //       categoriaRecemConcluida = categoria;
-  //     }
-  
-  //     if (feitos < total) {
-  //       todasCategoriasFeitas = false;
-  //     }
-  //   });
-  
-  //   // Verifica se a fase foi concluída antes de mostrar modais
-  //   const faseConcluida = categorias.length > 0 && categorias.every((cat) =>
-  //     localStorage.getItem(`concluida-${cat}-fase-${faseAtual}`)
-  //   );
-  
-  //   if (faseConcluida && faseAtual + 1 < todasAsFases.length) {
-  //     // Mostrar modal de fase concluída (tem prioridade)
-  //     setModalInfo({
-  //       titulo: "🎉 Encontros Concluídos",
-  //       mensagem: "✨ Parabéns! Você completou todas as categorias dessa fase. Novos encontros foram desbloqueados!",
-  //       tipo: "fase",
-  //     });
-  //   } else if (categoriaRecemConcluida) {
-  //     // Mostrar modal de categoria concluída apenas se a fase não foi concluída
-  //     setModalInfo({
-  //       titulo: "🎉 Categoria Concluída!",
-  //       mensagem: `Você concluiu todos os encontros da categoria "${categoriaRecemConcluida}".`,
-  //       tipo: "categoria",
-  //     });
-  //   }
-  
-  //   // Verifica se TODAS as fases foram concluídas
-  //   const todasFasesConcluidas = todasAsFases.every((fase, index) => {
-  //     const categorias = Object.keys(fase);
-  //     return categorias.every((cat) =>
-  //       localStorage.getItem(`concluida-${cat}-fase-${index}`)
-  //     );
-  //   });
-  
-  //   if (todasFasesConcluidas) {
-  //     console.log("✅ Todas as fases concluídas");
-  //     setJogoConcluido(true);
-  //   }
-  // }, [cardRealizados]);
 
 
   useEffect(() => {
@@ -191,6 +49,10 @@ export function useEncontros(Encontros: EncontrosPorCategoria) {
           tipo: "categoria",
         });
         localStorage.setItem(`concluida-${categoria}-fase-${faseAtual}`, "true");
+        const audio = new Audio("/Encontros-Secretos/playsucess.mp3");
+        audio.play().catch((err) => {
+          console.warn("Erro ao tocar som:", err);
+        });
       }
   
       if (feitos < total) {
@@ -239,7 +101,7 @@ export function useEncontros(Encontros: EncontrosPorCategoria) {
       //   tipo: "jogo",
       // });
     }
-    console.log(jogoConcluido)
+
   }, [cardRealizados]);
   
 
@@ -250,7 +112,7 @@ export function useEncontros(Encontros: EncontrosPorCategoria) {
 
   const revelarCard = useCallback((categoria: string, id: number) => {
     const key = `${categoria}-${id}`;
-    setCardRevelados((prev) => {
+    setCardRevelados((prev: Record<string, boolean>) => {
       if (prev[key]) return prev;
       const updated = { ...prev, [key]: true };
       localStorage.setItem("cardsRevelados", JSON.stringify(updated));
@@ -289,7 +151,7 @@ export function useEncontros(Encontros: EncontrosPorCategoria) {
 
   const toggleRealizado = useCallback((categoria: string, id: number) => {
     const key = `${categoria}-${id}`;
-    setCardRealizados((prev) => {
+    setCardRealizados((prev: Record<string, boolean>) => {
       const updated = { ...prev, [key]: !prev[key] };
       localStorage.setItem("cardsRealizados", JSON.stringify(updated));
       // verificarConclusaoCategoria(categoria, updated, todasAsFases, setModalInfo);

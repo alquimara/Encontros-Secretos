@@ -1,3 +1,4 @@
+import { ArrowLeftIcon } from "lucide-react";
 import { Button } from "../ui/button";
 
 interface VoltarButtonProps {
@@ -10,6 +11,8 @@ export const ButtonVoltar = ({ onClick }: VoltarButtonProps) => (
     variant="outline"
     onClick={onClick}
   >
-    ← Voltar às Categorias
+     <ArrowLeftIcon />
+     <span className="ml-2 hidden sm:inline">Voltar ás Categorias</span>
+    {/* ← Voltar às Categorias */}
   </Button>
 );

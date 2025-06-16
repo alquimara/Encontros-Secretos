@@ -27,7 +27,7 @@ export const ModalParabens: React.FC<ModalParabensProps> = ({ titulo, mensagem, 
         exit={{ scale: 0 }}
       >
         <h2 className="text-2xl font-bold text-pink-600 mb-2">{titulo}</h2>
-        <p className="text-gray-700 mb-4">{mensagem}</p>
+        <p className="text-neutral-700 mb-4">{mensagem}</p>
         <button
           className="mt-4 px-4 py-2 bg-pink-500 text-white rounded-xl hover:bg-pink-600 transition cursor-pointer"
           onClick={onClose}

@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Button } from "../ui/button";
+import { Card, CardContent } from "../ui/card";
 
 interface EncontroCardProps {
   encontro: {
@@ -12,7 +13,7 @@ interface EncontroCardProps {
   realizado: boolean;
   onRevelar: () => void;
   onToggleRealizado: () => void;
-  tocar: (src: string) => void;
+
 }
 
 export const EncontroCard = ({
@@ -21,7 +22,7 @@ export const EncontroCard = ({
   realizado,
   onRevelar,
   onToggleRealizado,
-  tocar,
+  
 }: EncontroCardProps) => {
   return (
     <motion.div
@@ -36,42 +37,75 @@ export const EncontroCard = ({
           className="absolute w-full h-full"
           style={{ transformStyle: 'preserve-3d' }}
         >
-          <div
-            className="absolute w-full h-full flex items-center justify-center rounded-xl bg-pink-200 border text-4xl font-bold shadow-inner"
-            style={{ backfaceVisibility: 'hidden' }}
-          >
-            ?
-          </div>
+<Card
+      className="cursor-pointer transition bg-white absolute hover:shadow-lg border-none w-full h-full bg-pink-200 text-4xl font-bold flex items-center justify-center rounded-xl border p-2"
+      style={{ backfaceVisibility: 'hidden' }}
+      
+     
+    >
+      {/* <CardContent className="p-2 text-center flex flex-col items-center justify-center gap-2 ">
+       ?
+      </CardContent> */}
+      <CardContent className="p-2 text-center flex flex-col items-center justify-center gap-2">
+  <span className="text-5xl">?</span>
+</CardContent>
+    </Card>
 
+<Card
+  className={`cursor-pointer transition w-full h-full bg-white flex items-center justify-center rounded-xl border p-2 ${
+    realizado ? 'border-pink-500 bg-pink-50 shadow-inner' : 'hover:shadow-lg'
+  }`}
+  style={{ transform: 'rotateY(180deg)', backfaceVisibility: 'hidden' }}
+>
+  <CardContent className="p-2 text-center flex flex-col items-center justify-center gap-2 relative">
+    {revelado && (
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.4 }}
+      >
+        <div className={`flex flex-col items-center ${realizado ? 'opacity-60 blur-[1px]' : ''}`}>
+          <div className="text-4xl mb-2">{encontro.icone}</div>
           <div
-            className="absolute w-full h-full flex flex-col items-center justify-center bg-white rounded-xl border p-2 text-center shadow-lg"
-            style={{ transform: 'rotateY(180deg)', backfaceVisibility: 'hidden' }}
+            className={`text-base font-semibold min-h-[48px] text-center ${
+              realizado ? 'line-through text-gray-500' : ''
+            }`}
           >
-            {revelado && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.4 }}
-              >
-                <div className={realizado ? 'opacity-50' : ''}>
-                  <div className="text-4xl mb-2">{encontro.icone}</div>
-                  <div className="text-base font-semibold mb-2 min-h-[48px]">{encontro.nome}</div>
-                </div>
-                <Button
-                  className="mt-2 cursor-pointer"
-                  size="sm"
-                  variant={realizado ? 'link' : 'default'}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onToggleRealizado();
-                    tocar(realizado ? '/Encontros-Secretos/cancelar.aac' : '/Encontros-Secretos/sucess.aac');
-                  }}
-                >
-                  {realizado ? 'Desfazer' : 'Marcar como feito'}
-                </Button>
-              </motion.div>
-            )}
+            {encontro.nome}
           </div>
+        </div>
+
+        <Button
+  className={` cursor-pointer mt-4 w-[230px] mx-auto transition-colors duration-200 ${
+    realizado
+      ? ''
+      : 'bg-pink-600 text-white hover:bg-pink-700'
+  }`}
+  size="sm"
+  variant={realizado ? 'link' : 'default'}
+  onClick={(e) => {
+    e.stopPropagation();
+    onToggleRealizado();
+  }}
+>
+  {realizado ? 'Desfazer' : 'Marcar como feito'}
+</Button>
+      </motion.div>
+    )}
+
+    {realizado && (
+      <div className="absolute top-2 right-2 text-green-600 text-xl">
+        ✅
+      </div>
+    )}
+  </CardContent>
+</Card>
+
+
+
+
+
+
         </motion.div>
       </div>
     </motion.div>

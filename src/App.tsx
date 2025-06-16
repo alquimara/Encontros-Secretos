@@ -32,7 +32,7 @@ function App() {
     setCardRealizados,
     setCardRevelados,
     jogoConcluido,
-    tocarSom,
+  
 
   } = useEncontros(Encontros);
 
@@ -72,75 +72,19 @@ function App() {
 
 
 
-  //   return (
-  //     jogoConcluido ? (
-  //       <FinalScreen />
-  //     ) : (
-  //       <div className="p-6 max-w-6xl mx-auto">
+  const iconePorCategoria: Record<string, React.ReactNode> = {
+    Romântico: <span>💞</span>,
+    Picantes: <span>🔥</span>,
+    Gastronómicos: <span>🍲</span>,
+    Aleatórios: <span>🎲</span>,
+    'Ar Livre': <span>🌟</span>,
+    Criativos: <span>🎨</span>,
+    Culturais: <span>🎭</span>,
+    Relaxantes: <span>🧘‍♀️</span>,
+    Esportivos: <span>🏃‍♂️</span>,
+    Surpresas: <span>🎁</span>,
+  };
 
-
-  //         {!categoriaSelecionada ? (
-  //            <>
-  //            <HeaderEncontro title="💘 Encontros Secretos" /><div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
-  //             <p className="text-center text-pink-600 mb-10 text-lg max-w-xl mx-auto">
-  //               Descubra encontros únicos e surpreendentes. Clique em uma categoria para começar.
-  //           </p>
-  //               {categorias.map((categoria) => {
-  //                 const total = encontrosCard[categoria]?.length || 0;
-  //                 const feitos = getQtdRealizados(categoria);
-
-  //                 return (
-  //                   <CategoriaCard
-  //                     key={categoria}
-  //                     nome={categoria}
-  //                     total={total}
-  //                     feitos={feitos}
-  //                     onClick={() => setCategoriaSelecionada(categoria)} />
-  //                 );
-  //               })}
-  //             </div></>
-  //         ) : (
-  //           <>
-  //             <div className="flex items-center justify-center gap-4 mb-8">
-  //   <ButtonVoltar onClick={() => setCategoriaSelecionada(null)} />
-
-  //   <HeaderEncontro 
-  //     title={`💘 ${categoriaSelecionada.replace(/([A-Z])/g, ' $1')}`} 
-  //   />
-  // </div>
-
-
-  //             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6">
-  //               {encontrosCard[categoriaSelecionada]?.map((encontro, index) => {
-  //                 const key = `${categoriaSelecionada}-${encontro.id}`;
-  //                 const isFeito = cardRealizados[key];
-
-  //                 return (
-  //                   <EncontroCard
-  //                     key={index}
-  //                     encontro={encontro}
-  //                     revelado={cardRevelados[key]}
-  //                     realizado={isFeito}
-  //                     onRevelar={() => revelarCard(categoriaSelecionada, encontro.id)}
-  //                     onToggleRealizado={() => toggleRealizado(categoriaSelecionada, encontro.id)}
-  //                   />
-  //                 );
-  //               })}
-  //             </div>
-  //           </>
-  //         )}
-
-  //         {modalInfo && (
-  //           <ModalParabens
-  //             titulo={modalInfo.titulo}
-  //             mensagem={modalInfo.mensagem}
-  //             onClose={MudancaFase}
-  //           />
-  //         )}
-  //       </div>
-  //     )
-
-  //   )
 
   return (
     jogoConcluido ? (
@@ -151,7 +95,7 @@ function App() {
         {!categoriaSelecionada ? (
           <>
             <HeaderEncontro title="💘 Encontros Secretos" />
-            <p className="text-center text-pink-600 mb-10 text-lg max-w-xl mx-auto"
+            <p className="text-center text-neutral-700 mb-10 text-lg max-w-xl mx-auto"
             >
               Descubra encontros únicos e surpreendentes. Clique em uma categoria para começar.
 
@@ -161,6 +105,7 @@ function App() {
               {categorias.map((categoria) => {
                 const total = encontrosCard[categoria]?.length || 0;
                 const feitos = getQtdRealizados(categoria);
+                
 
                 return (
                   <CategoriaCard
@@ -169,6 +114,7 @@ function App() {
                     total={total}
                     feitos={feitos}
                     onClick={() => setCategoriaSelecionada(categoria)}
+                    icone={iconePorCategoria[categoria] || <span>❓</span>}
                   />
                 );
               })}
@@ -184,13 +130,18 @@ function App() {
 
               <div className="mx-auto">
                 <HeaderEncontro
-                  title={`💘 ${categoriaSelecionada.replace(/([A-Z])/g, ' $1')}`}
+                  title={
+                    <span>
+                    {iconePorCategoria[categoriaSelecionada] || '❓'}
+                    {categoriaSelecionada}
+                  </span>
+                  }
                 />
               </div>
             </div>
 
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8 mt-15">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 mt-15">
               {encontrosCard[categoriaSelecionada]?.map((encontro, index) => {
                 const key = `${categoriaSelecionada}-${encontro.id}`;
                 const isFeito = cardRealizados[key];
@@ -202,7 +153,7 @@ function App() {
                     revelado={cardRevelados[key]}
                     realizado={isFeito}
                     onRevelar={() => revelarCard(categoriaSelecionada, encontro.id)}
-                    onToggleRealizado={() => toggleRealizado(categoriaSelecionada, encontro.id)} tocar={tocarSom}                  />
+                    onToggleRealizado={() => toggleRealizado(categoriaSelecionada, encontro.id)}               />
                 );
               })}
             </div>

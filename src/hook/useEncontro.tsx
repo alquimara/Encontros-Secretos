@@ -60,7 +60,7 @@ export function useEncontros(Encontros: EncontrosPorCategoria) {
           tipo: "categoria",
         });
         localStorage.setItem(`concluida-${categoria}-fase-${faseAtual}`, "true");
-        tocarSom("/Encontros-Secretos/playsucess.mp3");
+      
       }
   
       if (feitos < total) {
@@ -103,11 +103,7 @@ export function useEncontros(Encontros: EncontrosPorCategoria) {
     if (todasFasesConcluidas && !localStorage.getItem("jogoConcluido")) {
       localStorage.setItem("jogoConcluido", "true");
       setJogoConcluido(true);
-      // setModalInfo({
-      //   titulo: "🏁 Jogo Concluído!",
-      //   mensagem: "Você completou todas as fases e categorias. Parabéns!",
-      //   tipo: "jogo",
-      // });
+  
     }
 
   }, [cardRealizados]);
@@ -124,7 +120,7 @@ export function useEncontros(Encontros: EncontrosPorCategoria) {
       if (prev[key]) return prev;
       const updated = { ...prev, [key]: true };
       localStorage.setItem("cardsRevelados", JSON.stringify(updated));
-      tocarSom("/Encontros-Secretos/card.aac");
+     
       return updated;
     });
   }, []);

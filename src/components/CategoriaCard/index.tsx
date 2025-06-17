@@ -38,24 +38,6 @@ interface CategoriaCardProps {
   onClick: () => void;
 }
 
-// export const CategoriaCard = ({ nome, total, feitos, icone, onClick }: CategoriaCardProps) => {
-//   const isCompleto = feitos === total;
-
-//   return (
-//     <Card
-//       className="cursor-pointer transition bg-white hover:shadow-lg"
-//       // style={{ boxShadow: '0 2px 8px rgba(0, 0, 0, 0.05)' }}
-//       onClick={onClick}
-//     >
-//       <CardContent className="p-2 text-center flex flex-col items-center justify-center gap-2">
-//         <div className="text-4xl">{icone}</div>
-//         <div className="text-xl font-serif text-neutral-800">{nome}</div>
-//         <div className={`text-sm ${isCompleto ? 'text-pink-500 font-semibold' : 'text-neutral-500'}`}>{feitos}/{total}</div>
-//       </CardContent>
-//     </Card>
-//   );
-// };
-
 export const CategoriaCard = ({ nome, total, feitos, icone, onClick }: CategoriaCardProps) => {
   const isCompleto = feitos === total;
 

@@ -20,7 +20,7 @@ export const Encontros : EncontrosPorCategoria={
     // { id: 9, nome: "Banho de banheira com pétalas", icone: "🛁" },
     // { id: 10, nome: "Dormir abraçadinhos", icone: "🛏️" },
   ],
-  Picantes: [
+  Picantes:[
     { id: 1, nome: "Jogo de dados sensuais", icone: "🎲" },
     { id: 2, nome: "Banho juntos com espuma", icone: "🛁" },
     // { id: 3, nome: "Desafio da lingerie", icone: "👙" },
@@ -32,7 +32,7 @@ export const Encontros : EncontrosPorCategoria={
     // { id: 9, nome: "Dança sensual particular", icone: "💃" },
     // { id: 10, nome: "Beijos em lugares secretos", icone: "💋" },
   ],
-  Aleatórios: [
+  Aleatórios:[
     { id: 1, nome: "Pintar juntos uma tela", icone: "🎨" },
     { id: 2, nome: "Noite de karaokê em casa", icone: "🎤" },
     // { id: 3, nome: "Fazer um bolo juntos", icone: "🎂" },
@@ -44,7 +44,7 @@ export const Encontros : EncontrosPorCategoria={
     // { id: 9, nome: "Montar um quebra-cabeça", icone: "🧩" },
     // { id: 10, nome: "Criar playlist do casal", icone: "🎧" },
   ],
-  "Ar Livre": [
+  "Ar Livre":[
     { id: 1, nome: "Trilha na natureza", icone: "🌲" },
     { id: 2, nome: "Andar de bicicleta", icone: "🚴" },
     // { id: 3, nome: "Ver estrelas", icone: "🌌" },
@@ -166,7 +166,7 @@ export const Encontros1: EncontrosPorCategoria = {
       // { id: 19, nome: "Sessão de ASMR a dois", icone: "🎧" },
       // { id: 20, nome: "Inventar uma receita maluca", icone: "🍳" },
     ],
-    'ArLivre': [
+    'Ar Livre': [
       { id: 11, nome: "Passear de pedalinho", icone: "🚣" },
       { id: 12, nome: "Caça ao tesouro romântica", icone: "🧭" },
       // { id: 13, nome: "Praticar slackline juntos", icone: "🤸" },
@@ -264,7 +264,7 @@ export const Encontros2: EncontrosPorCategoria = {
       // { id: 29, nome: "Piquenique noturno", icone: "🌙" },
       // { id: 30, nome: "Montar um quebra-cabeça com foto do casal", icone: "🧩" },
     ],
-    picantes: [
+    Picantes: [
       { id: 21, nome: "Cozinhar só de avental", icone: "🍳" },
       { id: 22, nome: "Tomar banho juntos com música", icone: "🛁" },
       // { id: 23, nome: "Explorar pontos de prazer", icone: "🔥" },

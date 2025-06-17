@@ -7,6 +7,7 @@ export function useEncontros(Encontros: EncontrosPorCategoria) {
   const [categoriaSelecionada, setCategoriaSelecionada] = useState<string | null>(null);
   const [encontrosCard,setEncontrosCard] = useState({...Encontros});
   const todasAsFases = [Encontros,Encontros1,Encontros2]
+ 
 
   const [cardRevelados, setCardRevelados] = useState(() => {
     const stored = localStorage.getItem("cardsRevelados");
@@ -18,17 +19,11 @@ export function useEncontros(Encontros: EncontrosPorCategoria) {
     return stored ? JSON.parse(stored) : {};
   });
   const [modalInfo, setModalInfo] = useState<{ titulo: string, mensagem: string, tipo: string } | null>(null);
-  const [jogoConcluido, setJogoConcluido] = useState(false);
+
 
   const categorias = Object.keys(Encontros);
 
-  const tocarSom=(src: string) =>{
-    const audio = new Audio(src);
-    audio.volume = 0.2;
-    audio.play().catch((err) => {
-      console.warn("Erro ao tocar som:", err);
-    });
-  }
+
   
 
 
@@ -37,6 +32,8 @@ export function useEncontros(Encontros: EncontrosPorCategoria) {
     const faseAtual = Number(localStorage.getItem("faseAtual") || "0");
     const encontrosDaFase = todasAsFases[faseAtual];
     const categoriasDaFase = Object.keys(encontrosDaFase);
+    
+   
    
    
   
@@ -48,7 +45,7 @@ export function useEncontros(Encontros: EncontrosPorCategoria) {
       const total = cards.length;
       const feitos = cards.filter((e) => cardRealizados[`${categoria}-${e.id}`]).length;
   
-      // Verifica se a categoria foi concluída
+   
       if (
         feitos === total &&
         total > 0 &&
@@ -56,7 +53,7 @@ export function useEncontros(Encontros: EncontrosPorCategoria) {
       ) {
         setModalInfo({
           titulo: "🎉 Categoria Concluída!",
-          mensagem: `Você concluiu todos os encontros da categoria "${categoria}".`,
+          mensagem: `Você concluiu todos os encontros da categoria ${categoria}.`,
           tipo: "categoria",
         });
         localStorage.setItem(`concluida-${categoria}-fase-${faseAtual}`, "true");
@@ -68,12 +65,14 @@ export function useEncontros(Encontros: EncontrosPorCategoria) {
       }
     });
   
-    // Se todas as categorias foram concluídas nesta fase
+   
     if (
       todasCategoriasFeitas &&
       categoriasDaFase.length > 0 &&
       categoriasDaFase.every((cat) =>
-        localStorage.getItem(`concluida-${cat}-fase-${faseAtual}`)
+        
+        localStorage.getItem(`concluida-${cat}-fase-${faseAtual}`
+        )
       )
     ) {
       if (!localStorage.getItem(`fase-concluida-${faseAtual}`)) {
@@ -85,14 +84,15 @@ export function useEncontros(Encontros: EncontrosPorCategoria) {
   
         localStorage.setItem(`fase-concluida-${faseAtual}`, "true");
   
-        // Avança para próxima fase, se houver
-        if (faseAtual + 1 < todasAsFases.length) {
-          localStorage.setItem("faseAtual", String(faseAtual + 1));
-        }
+     
+        // if (faseAtual + 1 < todasAsFases.length) {
+        //   localStorage.setItem("faseAtual", String(faseAtual + 1));
+        //   console.log('estou na fase' + faseAtual)
+        
+        // }
       }
     }
-  
-    // Verifica se todas as fases foram concluídas
+
     const todasFasesConcluidas = todasAsFases.every((fase, index) => {
       const categorias = Object.keys(fase);
       return categorias.every((cat) =>
@@ -102,8 +102,6 @@ export function useEncontros(Encontros: EncontrosPorCategoria) {
   
     if (todasFasesConcluidas && !localStorage.getItem("jogoConcluido")) {
       localStorage.setItem("jogoConcluido", "true");
-      setJogoConcluido(true);
-  
     }
 
   }, [cardRealizados]);
@@ -112,30 +110,23 @@ export function useEncontros(Encontros: EncontrosPorCategoria) {
 
 
   
-  
-
   const revelarCard = useCallback((categoria: string, id: number) => {
     const key = `${categoria}-${id}`;
     setCardRevelados((prev: Record<string, boolean>) => {
       if (prev[key]) return prev;
       const updated = { ...prev, [key]: true };
       localStorage.setItem("cardsRevelados", JSON.stringify(updated));
+      
      
       return updated;
     });
   }, []);
-
   
-  
-
-
   const toggleRealizado = useCallback((categoria: string, id: number) => {
     const key = `${categoria}-${id}`;
     setCardRealizados((prev: Record<string, boolean>) => {
       const updated = { ...prev, [key]: !prev[key] };
       localStorage.setItem("cardsRealizados", JSON.stringify(updated));
-     
-      // verificarConclusaoCategoria(categoria, updated, todasAsFases, setModalInfo);
       return updated;
     });
   }, []);
@@ -165,8 +156,10 @@ export function useEncontros(Encontros: EncontrosPorCategoria) {
     setModalInfo,
     todasAsFases,
     setEncontrosCard,
-    jogoConcluido,
-    tocarSom
+ 
    };
 }
+
+
+
 

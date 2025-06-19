@@ -324,6 +324,10 @@ export function useEncontros(Encontros: EncontrosPorCategoria) {
     const saved = localStorage.getItem("faseAtual");
     return saved ? Number(saved) : 0;
   });
+  const [cardsAmados, setCardsAmados] = useState<Record<string, boolean>>(() => {
+    const data = localStorage.getItem("cardsAmados");
+    return data ? JSON.parse(data) : {};
+  });
 
   // Atualiza localStorage quando faseAtual mudar
   useEffect(() => {
@@ -457,6 +461,13 @@ export function useEncontros(Encontros: EncontrosPorCategoria) {
     },
     []
   );
+  const toggleAmei = useCallback((categoria: string, id: number) => {
+    const key = `${categoria}-${id}`;
+    setCardsAmados((prev) => {
+      const updated = { ...prev, [key]: !prev[key] };
+      return updated;
+    });
+  }, []);
 
   const getQtdRealizados = (categoria: string) => {
     if (!encontrosCard) return 0;
@@ -482,6 +493,7 @@ export function useEncontros(Encontros: EncontrosPorCategoria) {
     setEncontrosCard,
     faseAtual,
     setFaseAtual,
+    cardsAmados,toggleAmei
   };
 }
 

@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@fontsource/playfair-display": "^5.2.5",
+    "@heroicons/react": "^2.2.0",
     "@radix-ui/react-slot": "^1.2.2",
     "@tailwindcss/vite": "^4.1.6",
     "canvas-confetti": "^1.9.3",

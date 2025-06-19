@@ -219,6 +219,8 @@ function App() {
     setEncontrosCard,
     setCardRealizados,
     setCardRevelados,
+    toggleAmei,
+    cardsAmados
   } = useEncontros(Encontros);
   const [jogoConcluido,setJogoConcluido] = useState(false)
   useEffect(() => {
@@ -344,12 +346,14 @@ function App() {
 
               return (
                 <EncontroCard
+                categoria={categoriaSelecionada} 
                   key={index}
                   encontro={encontro}
                   revelado={cardRevelados[key]}
                   realizado={isFeito}
                   onRevelar={() => revelarCard(categoriaSelecionada, encontro.id)}
-                  onToggleRealizado={() => toggleRealizado(categoriaSelecionada, encontro.id)} />
+                  onToggleRealizado={() => toggleRealizado(categoriaSelecionada, encontro.id)}
+                  toggleAmei={() => toggleAmei(categoriaSelecionada, encontro.id)} cardsAmados={cardsAmados} />
               );
             })}
           </div>

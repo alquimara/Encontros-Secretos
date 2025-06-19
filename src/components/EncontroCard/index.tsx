@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Button } from "../ui/button";
 import { Card, CardContent } from "../ui/card";
+import { HeartIcon } from '@heroicons/react/24/solid'
 
 interface EncontroCardProps {
   encontro: {
@@ -8,11 +9,14 @@ interface EncontroCardProps {
     nome: string;
     icone: string;
   };
+  categoria: string;
 
   revelado: boolean;
   realizado: boolean;
   onRevelar: () => void;
   onToggleRealizado: () => void;
+  toggleAmei: () => void;
+  cardsAmados:  Record<string, boolean>;
 
 }
 
@@ -22,8 +26,12 @@ export const EncontroCard = ({
   realizado,
   onRevelar,
   onToggleRealizado,
+  toggleAmei,
+  cardsAmados,
+  categoria
   
 }: EncontroCardProps) => {
+  console.log(cardsAmados)
   return (
     <motion.div
       className="relative perspective cursor-pointer"
@@ -58,6 +66,29 @@ export const EncontroCard = ({
   style={{ transform: 'rotateY(180deg)', backfaceVisibility: 'hidden' }}
 >
   <CardContent className="p-2 text-center flex flex-col items-center justify-center gap-2 relative">
+  {/* <button
+      onClick={(e) => {
+        e.stopPropagation();
+        toggleAmei();
+      }}
+      className="absolute top-2 left-2 text-2xl"
+    >
+      <span className={cardsAmados[`${categoria}-${encontro.id}`] ? "text-pink-600" : "text-gray-400"}>
+        ❤️
+      </span>
+    </button> */}
+    <button
+  onClick={(e) => {
+    e.stopPropagation();
+    toggleAmei();
+  }}
+  className="absolute top-2 right-2"
+>
+  <HeartIcon
+    className={cardsAmados[`${categoria}-${encontro.id}`] ? "text-pink-600 w-6 h-6" : "text-gray-400 w-6 h-6"}
+  />
+</button>
+ 
     {revelado && (
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}

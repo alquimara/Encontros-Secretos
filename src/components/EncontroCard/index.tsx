@@ -148,7 +148,7 @@
 import { motion } from "framer-motion";
 import { Button } from "../ui/button";
 import { Card, CardContent } from "../ui/card";
-import { HeartIcon } from '@heroicons/react/24/solid';
+
 
 interface EncontroCardProps {
   encontro: {
@@ -171,14 +171,14 @@ export const EncontroCard = ({
   realizado,
   onRevelar,
   onToggleRealizado,
-  toggleAmei,
+
   cardsAmados,
   categoria
 }: EncontroCardProps) => {
   const cardKey = `${categoria}-${encontro.id}`;
   const amei = cardsAmados[cardKey];
 
-  console.log(amei)
+
 
   return (
     <motion.div
@@ -214,7 +214,7 @@ export const EncontroCard = ({
             <CardContent className="relative p-2 text-center flex flex-col items-center justify-center gap-2">
 
               {/* ÍCONE AMEI */}
-              <button
+              {/* <button
                 onClick={(e) => {
                   e.stopPropagation();
                   toggleAmei();
@@ -226,7 +226,7 @@ export const EncontroCard = ({
                     amei ? 'text-pink-600' : 'text-gray-400'
                   }`}
                 />
-              </button>
+              </button> */}
 
               {/* CONTEÚDO REVELADO */}
               {revelado && (
@@ -264,7 +264,7 @@ export const EncontroCard = ({
 
               {/* ÍCONE CHECK ✅ */}
               {realizado && (
-                <div className="absolute top-2 left-2 sm:top-3 sm:left-3 text-green-600 text-lg sm:text-xl">
+                <div className="absolute top-2 right-2 sm:top-3 sm:right-3 text-green-600 text-lg sm:text-xl">
                   ✅
                 </div>
               )}

@@ -25,48 +25,12 @@ export const Fases = ({faseSelecionada, setFaseSelecionada,setNavegandoFaseConcl
       };
       
   return (
-    // <>
-    //        {todasAsFases.map((fase,index) => (
-            
-    //         <div className={isDesbloqueada(index) ? "" : "opacity-50 pointer-events-none"}>
-    //   <CategoriaCard
-      
-    //     key={index}
-    //     nome={`Fase ${index + 1}`}
-    //     // onClick={()=>{if (isDesbloqueada(index)) setFaseSelecionada(index);}}
-    //     onClick={() => {
-    //       if (isDesbloqueada(index)) {
-    //         const concluida = localStorage.getItem(`fase-concluida-${index}`) === "true";
-    //         setNavegandoFaseConcluida(concluida); // Sinaliza para o hook se é uma volta
-    //         setFaseSelecionada(index);
-    //       }
-    //     }}
-    //     // onClick={() => {
-    //     //   const concluida = localStorage.getItem(`fase-concluida-${index}`) === "true";
-        
-    //     //   if (concluida) {
-    //     //     // 🚩 GARANTE que esteja salvo corretamente
-    //     //     // localStorage.setItem(`fase-concluida-${index}`, "true");
-    //     //     setNavegandoFaseConcluida(true);
-    //     //     setFaseSelecionada(index);
-    //     //   }
-        
-    //     //   // setFaseSelecionada(index);
-    //     // }}
-        
-    //     icone={<span>💖</span>} 
-    //     isCompleto = {true}
-    //     />
-    //     </div>
-        
-    // ))}
-        
-    // </>
+  
     
- 
     <>
     {todasAsFases.map((fase, index) => {
       const concluida = fases[index]?.concluida;
+      console.log(!isDesbloqueada)
   
       return (
         <div
@@ -81,7 +45,7 @@ export const Fases = ({faseSelecionada, setFaseSelecionada,setNavegandoFaseConcl
                 setFaseSelecionada(index);
               }
             }}
-            icone={<span>💖</span>}
+            icone={<span>{!isDesbloqueada(index) ? "🔒" : "💖"}</span>}
             isCompleto={concluida}
             tipo="fase"
           />

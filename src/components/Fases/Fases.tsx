@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { CategoriaCard } from '../CategoriaCard'
 import { useEncontros } from '@/hook/useEncontro'
 import { Encontros } from '@/data/Encontros'
@@ -28,7 +28,7 @@ export const Fases = ({faseSelecionada, setFaseSelecionada,setNavegandoFaseConcl
   
     
     <>
-    {todasAsFases.map((fase, index) => {
+    {todasAsFases.map((__, index) => {
       const concluida = fases[index]?.concluida;
       console.log(!isDesbloqueada)
   

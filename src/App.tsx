@@ -33,6 +33,7 @@ const iconePorCategoria:Record<string, React.ReactNode> = {
 
 function App() {
   const [faseSelecionada, setFaseSelecionada] = useState<number | null>(null);
+  const [nomeFaseSelecionada, setNomeFaseSelecionada] = useState<string>('');
   
   const {
     categoriaSelecionada,
@@ -183,6 +184,7 @@ function App() {
               faseSelecionada={faseSelecionada}
               setFaseSelecionada={setFaseSelecionada}
               setNavegandoFaseConcluida={setNavegandoFaseConcluida}
+              setNomeFaseSelecionada={setNomeFaseSelecionada}
             />
           </div>
         </>
@@ -200,11 +202,11 @@ function App() {
      name="Voltar às Fases" />
   </div>
 
-  <HeaderEncontro title={`📂 Fase ${faseSelecionada + 1} - Categorias`} />
+  <HeaderEncontro title={`${nomeFaseSelecionada}`} />
 </div>
 
 <p className="text-center text-neutral-700 mb-10 text-lg max-w-xl mx-auto">
-  Escolha uma categoria para explorar.
+  Desvende momentos inesqueciveis a dois
 </p>
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">

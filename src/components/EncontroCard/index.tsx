@@ -17,7 +17,7 @@ interface EncontroCardProps {
   realizado: boolean;
   onRevelar: () => void;
   onToggleRealizado: () => void;
-  faseConcluida: boolean; 
+  faseConcluida: boolean;
 
 }
 
@@ -29,7 +29,7 @@ export const EncontroCard = ({
   onToggleRealizado,
   faseConcluida
 }: EncontroCardProps) => {
-  
+
 
 
 
@@ -60,9 +60,8 @@ export const EncontroCard = ({
 
           {/* LADO 2 - REVELADO */}
           <Card
-            className={`cursor-pointer transition w-full h-full flex items-center justify-center rounded-xl border p-2 ${
-              realizado ? 'border-pink-500 bg-pink-50 shadow-inner' : 'bg-white hover:shadow-lg'
-            }`}
+            className={`cursor-pointer transition w-full h-full flex items-center justify-center rounded-xl border p-2 ${realizado ? 'border-pink-500 bg-pink-50 shadow-inner' : 'bg-white hover:shadow-lg'
+              }`}
             style={{ transform: 'rotateY(180deg)', backfaceVisibility: 'hidden' }}
           >
             <CardContent className="relative p-2 text-center flex flex-col items-center justify-center gap-2">
@@ -92,9 +91,8 @@ export const EncontroCard = ({
                 >
                   <div className="text-4xl mb-2">{encontro.icone}</div>
                   <div
-                    className={`text-base font-semibold min-h-[48px] text-center ${
-                      realizado ? 'line-through text-gray-500' : ''
-                    }`}
+                    className={`text-base font-semibold min-h-[48px] text-center ${realizado ? 'line-through text-gray-500' : ''
+                      }`}
                   >
                     {encontro.nome}
                   </div>
@@ -116,20 +114,21 @@ export const EncontroCard = ({
 
 
                   {!faseConcluida && (
-  <Button
-    className={` cursor-pointer mt-4 w-full sm:w-[230px] transition-colors duration-200 ${
-      realizado ? '' : 'bg-pink-600 text-white hover:bg-pink-700'
-    }`}
-    size="sm"
-    variant={realizado ? 'link' : 'default'}
-    onClick={(e) => {
-      e.stopPropagation();
-      onToggleRealizado();
-    }}
-  >
-    {realizado ? 'Desfazer' : 'Marcar como feito'}
-  </Button>
-)}
+                    <Button
+                      className={` cursor-pointer mt-4 w-full sm:w-[230px] transition-colors duration-200 ${realizado ? '' : 'bg-pink-600 text-white hover:bg-pink-700'
+                        }`}
+                      size="sm"
+                      variant={realizado ? 'link' : 'default'}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onToggleRealizado();
+                      }}
+                    >
+                      {realizado ? 'Desfazer' : 'Marcar como feito'}
+                    </Button>
+  
+                 
+                  )}
                 </motion.div>
               )}
 

@@ -19,10 +19,10 @@ const todasAsFases = [Encontros, Encontros1, Encontros2];
     return localStorage.getItem("premium") === "true";
   };
 
-  const podeAcessarFase = (fase: number) => {
-    if (fase === 0) return true; // Fase 1 sempre grátis
-    return isPremium(); // Outras só premium
-  };
+  // const podeAcessarFase = (fase: number) => {
+  //   if (fase === 0) return true; // Fase 1 sempre grátis
+  //   return isPremium(); // Outras só premium
+  // };
 
  /* ============================
      🎮 FASE ATUAL

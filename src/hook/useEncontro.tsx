@@ -10,6 +10,23 @@ import { Encontros1, Encontros2 } from "../data/Encontros";
 export function useEncontros(Encontros: EncontrosPorCategoria, faseSelecionada:number | null) {
 const todasAsFases = [Encontros, Encontros1, Encontros2];
 
+
+ /* ============================
+     🔐 CONTROLE PREMIUM
+  ============================ */
+
+  const isPremium = () => {
+    return localStorage.getItem("premium") === "true";
+  };
+
+  const podeAcessarFase = (fase: number) => {
+    if (fase === 0) return true; // Fase 1 sempre grátis
+    return isPremium(); // Outras só premium
+  };
+
+ /* ============================
+     🎮 FASE ATUAL
+  ============================ */
   // Estado da fase atual inicializado do localStorage ou 0
   const [faseAtual, setFaseAtual] = useState<number>(() => {
     const saved = localStorage.getItem("faseAtual");
@@ -23,6 +40,10 @@ const todasAsFases = [Encontros, Encontros1, Encontros2];
 
   // Atualiza localStorage quando faseAtual mudar
   useEffect(() => {
+    // if (!podeAcessarFase(faseAtual)) {
+    //   window.location.href = "/#premium";
+    //   return;
+    // }
     localStorage.setItem("faseAtual", String(faseAtual));
   }, [faseAtual]);
 
@@ -126,6 +147,15 @@ useEffect(() => {
     !concluida;
 
   if (faseFoiConcluidaAgora) {
+    if (faseAtual === 0 && !isPremium()) {
+      setModalInfo({
+        titulo: "💖 Vocês arrasaram!",
+        mensagem:
+          "Para desbloquear as próximas fases, adquira a versão Premium ✨",
+        tipo: "premium",
+      });
+      return;
+    }
     setModalInfo({
       titulo: "🎉 você concluiu todos os Encontros!",
       mensagem: `💌 Prepare-se para novos encontros.`,

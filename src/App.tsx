@@ -15,6 +15,7 @@ import { useEffect, useState } from 'react';
 import { Toaster } from 'sonner';
 import {CategoriaCard } from './components/CategoriaCard';
 import { Fases } from './components/Fases/Fases';
+import LandingPage from './components/LandingPage';
 
 
 
@@ -34,6 +35,7 @@ const iconePorCategoria:Record<string, React.ReactNode> = {
 function App() {
   const [faseSelecionada, setFaseSelecionada] = useState<number | null>(null);
   const [nomeFaseSelecionada, setNomeFaseSelecionada] = useState<string>('');
+  const [mostrarLanding, setMostrarLanding] = useState(true);
   
   const {
     categoriaSelecionada,
@@ -121,6 +123,14 @@ function App() {
 
   const handleMudancaFase = () => {
 
+    if(modalInfo?.tipo ==='premium'){
+      setModalInfo(null);
+      setMostrarLanding(true)
+      setTimeout(() => {
+        const section = document.getElementById("premium");
+        section?.scrollIntoView({ behavior: "smooth" });
+      }, 100);
+    }
   
     if (modalInfo?.tipo === 'fase') {
       const novaFase = faseAtual + 1;
@@ -153,6 +163,32 @@ function App() {
  
  
 ;
+
+// if (mostrarLanding) {
+//   return (
+//     <div className="min-h-screen flex flex-col items-center justify-center bg-pink-50 p-6 text-center">
+//       <h1 className="text-4xl font-bold text-pink-600 mb-6">
+//         💘 Encontros Secretos
+//       </h1>
+
+//       <p className="max-w-xl text-lg text-neutral-700 mb-8">
+//         Um jogo interativo para casais viverem momentos únicos,
+//         divertidos e cheios de conexão.
+//         Comece gratuitamente e desbloqueie todas as fases por apenas R$10.
+//       </p>
+
+//       <button
+//         onClick={() => setMostrarLanding(false)}
+//         className="bg-pink-600 text-white px-8 py-3 rounded-xl text-lg hover:bg-pink-700 transition"
+//       >
+//         🎮 Jogar Agora
+//       </button>
+//     </div>
+//   );
+// }
+if (mostrarLanding) {
+  return <LandingPage onStart={() => setMostrarLanding(false)} />;
+}
 
   if (jogoConcluido) {
     return <FinalScreen />;
